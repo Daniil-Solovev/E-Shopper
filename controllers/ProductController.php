@@ -2,9 +2,15 @@
 
 class ProductController
 {
-    public function actionList()
+    public function actionView($productId)
     {
-        echo 'ProductController actionList';
+        $categories = [];
+        $categories = Category::getCategoriesList();
+
+        $product = Product::getProductById($productId);
+
+        require_once (ROOT . '/views/product/view.php');
+
         return true;
     }
 }

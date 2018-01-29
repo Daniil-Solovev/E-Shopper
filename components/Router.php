@@ -23,9 +23,7 @@ class Router
         }
     }
 
-    /**
-     *
-     */
+
 	public function run()
 	{
 	    // Получает строку запроса
@@ -34,7 +32,7 @@ class Router
         // Проверяет наличие запроса (в $uri) в routes
         foreach ($this->routes as $uriPattern => $path) {
             if (preg_match("~$uriPattern~", $uri)) {
-                $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+                $internalRoute = preg_replace("~$uriPattern~", $path, $uri); // как, что, где
 
                 // Определяет контроллер, action, параметры
                 $segments = explode('/', $internalRoute);
@@ -43,15 +41,14 @@ class Router
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
                 $parameters = $segments;
-
                 // Подключает файл класса контроллера
-                $controllerFile = $_SERVER['DOCUMENT_ROOT'] . '/controllers/' . $controllerName . '.php';
+                $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
 
                 if (file_exists($controllerFile)) {
                     include_once($controllerFile);
                 }
 
-                // Создает объект, вызывает медот (action)
+                // Создает объект, вызывает метод (action)
                 $controllerObject = new $controllerName;
                 $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
                 if ($result != null) {
