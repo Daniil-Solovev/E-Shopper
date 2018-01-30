@@ -2,6 +2,10 @@
 
 class Db
 {
+    /**
+     * @return PDO
+     * Инициализирует соединение с ДБ используя данные db_params.php
+     */
     public static function getConnection()
     {
         $paramsPath = ROOT . '/config/db_params.php';

@@ -2,13 +2,18 @@
 
 class Product
 {
+    // Определяет количество отображаемых элементов по умолчанию
     const SHOW_BY_DEFAULT = 3;
 
-    public static function getLatestProducts ($count = self::SHOW_BY_DEFAULT) {
+    /**
+     * @param int $count
+     * @return array
+     * Выводит последние добавленные товары
+     */
+    public static function getLatestProducts($count = self::SHOW_BY_DEFAULT) {
+
         $count = intval($count);
-
         $db = Db::getConnection();
-
         $productsList = [];
 
         $result = $db->query("SELECT id, name, price, image, is_new FROM product 
@@ -25,6 +30,12 @@ class Product
         return $productsList;
     }
 
+    /**
+     * @param bool $categoryId
+     * @param int $page
+     * @return array
+     * Возвращает список товаров согласно заданой категории
+     */
     public static function getProductsListByCategory($categoryId = false, $page = 1)
     {
         if ($categoryId) {
@@ -51,6 +62,11 @@ class Product
         }
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * Возвращает элемент по его id
+     */
     public static function getProductById($id)
     {
         $id = intval($id);
@@ -65,6 +81,11 @@ class Product
         }
     }
 
+    /**
+     * @param $categoryId
+     * @return mixed
+     * Возвращает все элементы одной категории для определения количества кнопок пагинатора
+     */
     public static function getTotalProductsInCategory($categoryId)
     {
         $db = Db::getConnection();

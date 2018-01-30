@@ -2,6 +2,10 @@
 
 class SiteController
 {
+    /**
+     * @return bool
+     * Вывод списка категорий и последних добавленых товаров (за счет сортировки DESC)
+     */
     public function actionIndex()
     {
         $categories = [];
@@ -11,7 +15,6 @@ class SiteController
         $latestProduct = Product::getLatestProducts();
 
         require_once (ROOT . '/views/site/index.php');
-
         return true;
     }
 }

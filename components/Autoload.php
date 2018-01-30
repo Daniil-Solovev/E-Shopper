@@ -1,5 +1,6 @@
 <?php
 
+// Подключение автозагрузки классов лямбда функцией
 spl_autoload_register(function ($class_name)
 {
     $array_path = [

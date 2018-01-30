@@ -5,6 +5,7 @@ class Router
 	private $routes;
     /**
      * Router constructor.
+     * Конструктором подключает правила маршрутов (routes)
      */
 	public function __construct()
 	{
@@ -13,7 +14,7 @@ class Router
 	}
 
     /**
-     * return request string
+     * Возвращает разделы сайта без домена
      * @return string
      */
     private function getUri()
@@ -22,7 +23,6 @@ class Router
             return trim($_SERVER['REQUEST_URI'],  '/');
         }
     }
-
 
 	public function run()
 	{

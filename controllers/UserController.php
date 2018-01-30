@@ -1,9 +1,14 @@
 <?php
 
+// Алиас для библиотеки Respect\Validation
 use Respect\Validation\Validator as V;
 
 class UserController
 {
+    /**
+     * @return bool
+     * Валидация полей регистрации
+     */
     public function actionRegister()
     {
         $name = '';
@@ -18,6 +23,7 @@ class UserController
             $email = htmlspecialchars($_POST['email']);
             $password = $_POST['password'];
 
+            // Валидаторы длины поля и корректности email
             $validateName = V::stringType();
             $isValidName = $validateName->length(3)->validate($name);
             $validateEmail = V::email();
@@ -46,11 +52,14 @@ class UserController
             }
         }
 
-
         require_once (ROOT . '/views/user/register.php');
         return true;
     }
 
+    /**
+     * @return bool
+     * Валидация полей входа. Редирект в личный кабинет
+     */
     public function actionLogin()
     {
         $email = '';
@@ -86,6 +95,9 @@ class UserController
         return true;
     }
 
+    /**
+     * Logout
+     */
     public function actionLogout()
     {
         unset($_SESSION['user']);

@@ -2,6 +2,13 @@
 
 class User
 {
+    /**
+     * @param $name
+     * @param $email
+     * @param $password
+     * @return bool
+     * Добавляет нового пользователя в БД
+     */
     public static function register($name, $email, $password)
     {
         $db = Db::getConnection();
@@ -16,6 +23,11 @@ class User
         return $result->execute();
     }
 
+    /**
+     * @param $email
+     * @return bool
+     * Проверяет наличие в БД пользователя с аналогичным email
+     */
     public static function checkEmailExists($email)
     {
         $db = Db::getConnection();
@@ -31,6 +43,12 @@ class User
         return false;
     }
 
+    /**
+     * @param $email
+     * @param $password
+     * @return bool
+     * Ищет пользователя и проводит аутентификацию
+     */
     public static function checkUserData($email, $password)
     {
         $db = Db::getConnection();
@@ -49,11 +67,19 @@ class User
 
     }
 
+    /**
+     * @param $userId
+     * Стартует сессию с id пользователя
+     */
     public static function auth($userId)
     {
         $_SESSION['user'] = $userId;
     }
 
+    /**
+     * @return mixed
+     * Авторизация
+     */
     public static function checkLogged()
     {
         if (isset($_SESSION['user'])) {
@@ -63,6 +89,10 @@ class User
         header("Location: /user/login");
     }
 
+    /**
+     * @return bool
+     * Авторизация
+     */
     public static function isGuest()
     {
         if (isset($_SESSION['user'])) {
@@ -72,6 +102,13 @@ class User
         }
     }
 
+    /**
+     * @param $id
+     * @param $name
+     * @param $password
+     * @return bool
+     * Редактирование пользовательских данных
+     */
     public static function edit($id, $name, $password)
     {
         $db = Db::getConnection();

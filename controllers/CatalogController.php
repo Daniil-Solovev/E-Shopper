@@ -2,6 +2,10 @@
 
 class CatalogController
 {
+    /**
+     * @return bool
+     * Вывод списка категорий и последних добавленых товаров (за счет сортировки DESC)
+     */
     public function actionIndex()
     {
         $categories = [];
@@ -15,6 +19,14 @@ class CatalogController
         return true;
     }
 
+    /**
+     * @param $categoryId
+     * @param int $page
+     * @return bool
+     * Вывод списка категорий
+     * Вывод товаров по id категории
+     * Запрос общего списка товаров в категории и вывод пагинатора
+     */
     public function actionCategory($categoryId, $page = 1)
     {
         $categories = [];

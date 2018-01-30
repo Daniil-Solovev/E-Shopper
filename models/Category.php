@@ -3,8 +3,8 @@
 class Category
 {
     /**
-     * // Возвращает массив категорий товаров
      * @return array
+     * Выводит список категорий
      */
     public static function getCategoriesList()
     {
