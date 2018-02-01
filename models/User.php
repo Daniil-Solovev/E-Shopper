@@ -60,7 +60,7 @@ class User
 
         $user = $result->fetch();
         if ($user && password_verify($password, $user['password'])) {
-            return $user['id'];
+            return $user;
         }
 
         return false;
@@ -68,12 +68,13 @@ class User
     }
 
     /**
-     * @param $userId
+     * @param $userData
      * Стартует сессию с id пользователя
      */
-    public static function auth($userId)
+    public static function auth($userData)
     {
-        $_SESSION['user'] = $userId;
+        $_SESSION['user'] = $userData['id'];
+        $_SESSION['email'] = $userData['email'];
     }
 
     /**
@@ -120,5 +121,35 @@ class User
         $result->bindParam(':name', $name, PDO::PARAM_STR);
         $result->bindParam(':password', $passhash, PDO::PARAM_STR);
         return $result->execute();
+    }
+
+    public static function sendMessage($email, $textMessage, $fileName)
+    {
+        // Конфигурация траспорта
+        $transport = (new Swift_SmtpTransport('smtp.mail.ru', 465, 'ssl'))
+            ->setUsername('doingsdone@mail.ru')
+            ->setPassword('rds7BgcL')
+        ;
+
+        $text = $textMessage;
+
+        // Формирование сообщения
+        $message = new Swift_Message("Оповещение о задачах");
+        $message->setTo(["frontend.servise@gmail.com" => "Администратор"]);
+        $message->setBody("$text");
+        $message->setFrom("doingsdone@mail.ru", "$email");
+
+        // Добавление файлов
+        if (isset($fileName)) {
+            $path = ROOT . '/' . $fileName;
+            $path = str_replace('\\', '/', $path);
+            $message->attach(
+                Swift_Attachment::fromPath($path)
+            );
+        }
+
+        // Отправка сообщения
+        $mailer = new Swift_Mailer($transport);
+        $mailer->send($message);
     }
 }

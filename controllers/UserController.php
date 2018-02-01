@@ -83,11 +83,11 @@ class UserController
                 $errors[] = 'Пароль должен быть не менее 6-ти символов';
             }
 
-            $userId = User::checkUserData($email, $password);
-            if (!$userId) {
+            $userData= User::checkUserData($email, $password);
+            if (empty($userData)) {
                 $errors[] = 'Неправильные данные для входа на сайт';
             } else {
-                User::auth($userId);
+                User::auth($userData);
                 header("Location: /cabinet/");
             }
         }

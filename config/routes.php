@@ -15,6 +15,7 @@ return array(
     'cabinet/edit' => 'cabinet/edit', // actionEdit в CabinetController
     'cabinet' => 'cabinet/index', // actionIndex в CabinetController
 
+    'feedback' => 'site/feedback', // actionFeedback в SiteController
 
     '' => 'site/index', // actionIndex  в SiteController
 );
