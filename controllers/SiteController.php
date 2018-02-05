@@ -17,6 +17,9 @@ class SiteController
         $latestProduct = [];
         $latestProduct = Product::getLatestProducts();
 
+        $recommendedList = [];
+        $recommendedList = Product::getRecommendedList();
+
         require_once (ROOT . '/views/site/index.php');
         return true;
     }
@@ -30,7 +33,6 @@ class SiteController
         $email = $_SESSION['email'];
         $result = false;
         $errors = [];
-        $file = null;
 
         if (isset($_POST['submit'])) {
             $message = $_POST['feedback'];

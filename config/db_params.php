@@ -5,5 +5,6 @@ return array(
     'host' => 'localhost',
     'dbname' => 'phpshop',
     'user' => 'root',
-    'password' => ''
+    'password' => '',
+    'charset' => 'utf8'
 );

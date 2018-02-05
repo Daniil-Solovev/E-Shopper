@@ -123,7 +123,7 @@ class User
         return $result->execute();
     }
 
-    public static function sendMessage($email, $textMessage, $fileName)
+    public static function sendMessage($email, $textMessage, $fileName = null)
     {
         // Конфигурация траспорта
         $transport = (new Swift_SmtpTransport('smtp.mail.ru', 465, 'ssl'))

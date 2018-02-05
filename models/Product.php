@@ -3,7 +3,7 @@
 class Product
 {
     // Определяет количество отображаемых элементов по умолчанию
-    const SHOW_BY_DEFAULT = 3;
+    const SHOW_BY_DEFAULT = 6;
 
     /**
      * @param int $count
@@ -17,16 +17,8 @@ class Product
         $productsList = [];
 
         $result = $db->query("SELECT id, name, price, image, is_new FROM product 
-                                      WHERE status = '1' ORDER BY id DESC LIMIT " . $count);
-        $i = 0;
-        while ($row = $result->fetch()) {
-            $productsList[$i]['id'] = $row['id'];
-            $productsList[$i]['name'] = $row['name'];
-            $productsList[$i]['price'] = $row['price'];
-            $productsList[$i]['image'] = $row['image'];
-            $productsList[$i]['is_new'] = $row['is_new'];
-            $i++;
-        }
+                                      WHERE status = '1' AND brand <> 'Name' ORDER BY id DESC LIMIT " . $count);
+        $productsList = $result->fetchAll();
         return $productsList;
     }
 
@@ -49,15 +41,7 @@ class Product
                                           . " ORDER BY id ASC "
                                           . "LIMIT ".self::SHOW_BY_DEFAULT
                                           . " OFFSET " . $offset);
-            $i = 0;
-            while ($row = $result->fetch()) {
-                $products[$i]['id'] = $row['id'];
-                $products[$i]['name'] = $row['name'];
-                $products[$i]['price'] = $row['price'];
-                $products[$i]['image'] = $row['image'];
-                $products[$i]['is_new'] = $row['is_new'];
-                $i++;
-            }
+            $products = $result->fetchAll();
             return $products;
         }
     }
@@ -74,10 +58,24 @@ class Product
         if ($id) {
             $db = Db::getConnection();
 
-            $result = $db->query('SELECT * FROM product WHERE id =' . $id);
-            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $db->prepare('SELECT * FROM product WHERE id = ?');
+            $result->execute(array($id));
 
-            return $result->fetch();
+           $products = [];
+            $i = 0;
+            while ($row = $result->fetch()) {
+                $products[$i]['id'] = $row['id'];
+                $products[$i]['name'] = $row['name'];
+                $products[$i]['code'] = $row['code'];
+                $products[$i]['price'] = $row['price'];
+                $products[$i]['image'] = $row['image'];
+                $products[$i]['brand'] = $row['brand'];
+                $products[$i]['description'] = $row['description'];
+                $i++;
+            }
+
+            return $products;
+
         }
     }
 
@@ -92,9 +90,35 @@ class Product
 
         $result = $db->query('SELECT count(id) AS count FROM product '
                                       . 'WHERE status = "1" AND category_id = '. $categoryId);
-        $result->setFetchMode(PDO::FETCH_ASSOC);
         $row = $result->fetch();
 
         return $row['count'];
     }
+
+    public static function getProductsByIds($idsArray)
+    {
+        $products = [];
+        $db = Db::getConnection();
+
+        $idsString = implode(',', $idsArray);
+
+        $sql = "SELECT * FROM product WHERE status = 1 AND id IN ($idsString)";
+        $result = $db->query($sql);
+        $products = $result->fetchAll();
+
+        return $products;
+    }
+
+    public static function getRecommendedList($count = self::SHOW_BY_DEFAULT)
+    {
+        $recommendedProducts = [];
+        $db = Db::getConnection();
+
+        $result = $db->query('SELECT id, name, price, image FROM product WHERE status = 1
+                                      AND is_recommended = 1 LIMIT ' . $count);
+        $result = $result->fetchAll();
+
+        return $result;
+    }
+
 }
