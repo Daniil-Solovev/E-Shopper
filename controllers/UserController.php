@@ -101,6 +101,7 @@ class UserController
     public function actionLogout()
     {
         unset($_SESSION['user']);
+        Cart::clear();
         header("Location: /");
     }
 }

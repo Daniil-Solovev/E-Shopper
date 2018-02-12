@@ -1,4 +1,4 @@
-<?php include ROOT . '/views/layouts/header.php'; ?>
+<?php include ROOT . '/views/layouts/header.php'  ?>
 
 <section>
     <div class="container">
@@ -11,13 +11,13 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="/category/<?php echo $categoryItem['id'];?>">
-                                            <?php echo $categoryItem['name'];?>
+                                        <a href="/category/<?= $categoryItem['id'] ?>">
+                                            <?= $categoryItem['name'] ?>
                                         </a>
                                     </h4>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endforeach  ?>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="view-product">
-                                <img src="/template/<?= $product[0]['image']?>" alt="" />
+                                <img src="<?= Product::getImage($product[0]['id'])?>" alt="" />
                             </div>
                         </div>
                         <div class="col-sm-7">
@@ -55,7 +55,7 @@
                     <div class="row">                                
                         <div class="col-sm-12">
                             <h5>Описание товара</h5>
-                            <pre><?php echo $product[0]['description']?></pre>
+                            <pre><?= $product[0]['description']?></pre>
                         </div>
                     </div>
                 </div><!--/product-details-->
@@ -65,4 +65,4 @@
     </div>
 </section>
 
-<?php include ROOT . '/views/layouts/footer.php'; ?>
+<?php include ROOT . '/views/layouts/footer.php'  ?>

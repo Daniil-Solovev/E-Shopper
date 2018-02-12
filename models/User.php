@@ -75,6 +75,8 @@ class User
     {
         $_SESSION['user'] = $userData['id'];
         $_SESSION['email'] = $userData['email'];
+        $_SESSION['role'] = $userData['role'];
+        $_SESSION['name'] = $userData['name'];
     }
 
     /**
@@ -123,6 +125,12 @@ class User
         return $result->execute();
     }
 
+    /**
+     * @param $email
+     * @param $textMessage
+     * @param null $fileName
+     * Отправляет сообщение админу о наличии новых заказов
+     */
     public static function sendMessage($email, $textMessage, $fileName = null)
     {
         // Конфигурация траспорта

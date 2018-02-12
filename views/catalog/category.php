@@ -30,7 +30,7 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="<?= '/template/' . $product['image']?>" alt="" />
+                                        <img src="<?= Product::getImage($product['id'])?>" alt="" />
                                         <h2><?= $product['price'] ?></h2>
                                         <p>
                                             <a href="/product/<?= $product['id'] ?> ">
@@ -55,5 +55,6 @@
         </div>
     </div>
 </section>
+
 <?php require_once (ROOT . '/views/layouts/footer.php')?>
 

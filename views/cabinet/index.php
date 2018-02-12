@@ -6,11 +6,14 @@
             <h1>Кабинет пользователя</h1>
             <ul>
                 <li><a href="/cabinet/edit/">Редактировать данные</a></li>
-                <li><a href="/user/history">Список покупок</a></li>
+                <li><a href="/cart/">Корзина</a></li>
+                <?php if ($_SESSION['role'] == 'admin'):?>
+                    <li><a href="/admin">Админ - панель</a></li>
+                <?php endif;?>
             </ul>
 
         </div>
     </div>
 </section>
 
-<?php include ROOT . '/views/layouts/footer.php'; ?>
+<?php include ROOT . '/views/layouts/footer_fix.php'; ?>

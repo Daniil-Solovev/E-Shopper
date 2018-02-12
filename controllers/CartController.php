@@ -130,4 +130,13 @@ class CartController
         require_once (ROOT. '/views/cart/checkout.php');
         return true;
     }
+
+    // Удаляет товар из корзины
+
+    public function actionDelete($id)
+    {
+        Cart::deleteProduct($id);
+
+        header("Location: /cart");
+    }
 }

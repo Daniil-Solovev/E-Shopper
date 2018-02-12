@@ -30,7 +30,6 @@ class SiteController
      */
     public function actionFeedback()
     {
-        $email = $_SESSION['email'];
         $result = false;
         $errors = [];
 
@@ -42,11 +41,23 @@ class SiteController
             // Перемещает загруженные файлы в корневую директорию.
             move_uploaded_file($filePath, ROOT . '/' . $fileName);
 
+            if (isset($_SESSION['email'])) {
+                $email = $_SESSION['email'];
+            } else {
+                $email = $_POST['email'];
+            }
+
             $validateMessage = V::stringType();
             $isValidMessage = $validateMessage->length(6)->validate($message);
+            $validateEmail = V::email();
+            $isValidEmail = $validateEmail->validate($email);
 
             if (!$isValidMessage) {
                 $errors[] = 'Введите сообщение';
+            }
+
+            if (!$isValidEmail) {
+                $errors[] = 'Введите email';
             }
 
             if (empty($errors)) {

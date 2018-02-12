@@ -68,7 +68,7 @@
                             <li><a href="/user/login"><i class="fa fa-lock"></i> Вход</a></li>
                             <li><a href="/user/register"><i class="fa fa-lock"></i> Регистрация</a></li>
                             <?php else:?>
-                            <li><a href="/cabinet/"><i class="fa fa-user"></i> Аккаунт</a></li>
+                            <li><a href="/cabinet/"><i class="fa fa-user"></i> <?= $_SESSION['name'] ?></a></li>
                             <li><a href="/user/logout"><i class="fa fa-unlock"></i> Выход</a></li>
                             <?php endif;?>
                         </ul>
@@ -99,8 +99,8 @@
                                     <li><a href="/cart/">Корзина</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/blog/">Блог</a></li>
-                            <li><a href="/about/">О магазине</a></li>
+                            <li><a href="#">Блог</a></li>
+                            <li><a href="#">О магазине</a></li>
                             <li><a href="/feedback/">Контакты</a></li>
                         </ul>
                     </div>

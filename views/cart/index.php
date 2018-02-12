@@ -1,4 +1,4 @@
-<?php include ROOT . '/views/layouts/header.php'; ?>
+<?php include ROOT . '/views/layouts/header.php'  ?>
 
     <section>
         <div class="container">
@@ -17,7 +17,7 @@
                                         </h4>
                                     </div>
                                 </div>
-                            <?php endforeach; ?>
+                            <?php endforeach  ?>
                         </div>
                     </div>
                 </div>
@@ -44,15 +44,15 @@
                                                 <?= $product['name']?>
                                             </a>
                                         </td>
-                                        <td><?= $product['price'];?></td>
+                                        <td><?= $product['price'] ?></td>
                                         <td><?= $productsInCart[$product['id']]?></td>
                                         <td>
-                                            <a class="btn btn-default checkout" href="/cart/delete/<?php echo $product['id']?>">
+                                            <a class="btn btn-default checkout" href="/cart/delete/<?= $product['id']?>">
                                                 <i class="fa fa-times"></i>
                                             </a>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach  ?>
                                 <tr>
                                     <td colspan="4">Общая стоимость, руб:</td>
                                     <td><?= $totalPrice?></td>
@@ -65,7 +65,7 @@
                             <p>Корзина пуста</p>
 
                             <a class="btn btn-default checkout" href="/"><i class="fa fa-shopping-cart"></i> Вернуться к покупкам</a>
-                        <?php endif; ?>
+                        <?php endif  ?>
 
                     </div>
 
@@ -76,4 +76,4 @@
         </div>
     </section>
 
-<?php include ROOT . '/views/layouts/footer.php'; ?>
+<?php include ROOT . '/views/layouts/footer_fix.php'  ?>

@@ -18,6 +18,9 @@
                     <div class="signup-form"><!--sign up form-->
                         <h2>Обратная связь</h2>
                         <form action="" method="post" enctype="multipart/form-data">
+                            <?php if (!isset($_SESSION['email'])):?>
+                                <input type="email" name="email" value="" placeholder="Введите Ваш email">
+                            <?php endif;?>
                             <textarea name="feedback" rows="10" cols="45" placeholder="Введите Ваше сообщение"></textarea>
                             <input type="file" name="file" value="Загрузить файл">
                             <input type="submit" name="submit" class="btn btn-default" value="Отправить" />
@@ -31,4 +34,4 @@
         </div>
     </section>
 
-<?php include ROOT . '/views/layouts/footer.php'; ?>
+<?php include ROOT . '/views/layouts/footer_fix.php'; ?>

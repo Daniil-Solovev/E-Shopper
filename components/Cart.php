@@ -30,6 +30,10 @@ class Cart
         return self::countItems();
     }
 
+    /**
+     * @return int
+     * Общее количество товаров в корзине
+     */
     public static function countItems()
     {
         if (isset($_SESSION['products'])) {
@@ -43,6 +47,10 @@ class Cart
         }
     }
 
+    /**
+     * @return bool
+     * Устанавливает сессию products, если еще не установлена
+     */
     public static function getProducts()
     {
         if (isset($_SESSION['products'])) {
@@ -51,6 +59,11 @@ class Cart
         return false;
     }
 
+    /**
+     * @param $products
+     * @return int
+     * Возвращает общую сумму товаров в корзине
+     */
     public static function getTotalPrice($products)
     {
         $productsInCart = self::getProducts();
@@ -65,10 +78,26 @@ class Cart
         return $total;
     }
 
+    /**
+     * Очищает корзину
+     */
     public static function clear()
     {
         if (isset($_SESSION['products'])) {
             unset($_SESSION['products']);
         }
+    }
+
+    /**
+     * @param $id
+     * Удаляет товар из корзины
+     */
+    public static function deleteProduct($id)
+    {
+        $productsInCart = self::getProducts();
+
+        unset($productsInCart[$id]);
+
+        $_SESSION['products'] = $productsInCart;
     }
 }

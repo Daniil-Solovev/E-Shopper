@@ -39,7 +39,7 @@
                                 <?php if (isset($errors) && is_array($errors)): ?>
                                     <ul>
                                         <?php foreach ($errors as $error): ?>
-                                            <li> - <?php echo $error; ?></li>
+                                            <li> - <?= $error ?></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 <?php endif; ?>
@@ -75,4 +75,4 @@
         </div>
     </section>
 
-<?php include ROOT . '/views/layouts/footer.php'; ?>
+<?php include ROOT . '/views/layouts/footer_fix.php'; ?>
